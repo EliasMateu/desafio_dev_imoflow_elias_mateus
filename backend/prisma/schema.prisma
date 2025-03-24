@@ -14,24 +14,23 @@ datasource db {
 }
 
 model Condominium {
-  id String @id @default(uuid()) @map("_id") @db.ObjectId
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   id_imovel String
-  nome_condominio String
+  nome_condominio String @unique
   cep Int
   rua String
   numero Int
   complemento String
-  bairro String
   cidade String
   estado String
-  tipo TipoCondominio
+  tipo CondominiumType
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt() @default(now())
 
   @@map("condominiums")
 }
 
-enum TipoCondominio {
+enum CondominiumType {
   HORIZONTAL
   VERTICAL
 }
