@@ -18,7 +18,7 @@ export const useImoveisStore = defineStore('imoveis', () => {
     try {
       const dados = await ApiService.getImoveis()
       imoveis.value = dados
-        .filter((imovel: any) => imovel.categoria === 'Casa')
+        .filter((imovel: any) => imovel.categoria === 'Apartamento')
         .map((imovel: any) => ({
           id_imovel: imovel.id_imovel,
           categoria: imovel.categoria,
@@ -28,7 +28,6 @@ export const useImoveisStore = defineStore('imoveis', () => {
         }))
     } catch (error) {
       console.error('Erro ao carregar imóveis:', error)
-    } finally {
     }
   }
 
