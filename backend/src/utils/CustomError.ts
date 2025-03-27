@@ -1,13 +1,21 @@
-class CustomError extends Error {
-  public statusCode: number;
-  public message: string;
-
-  constructor(statusCode: number, message: string) {
+export class CustomError extends Error {
+  constructor(
+    public readonly statusCode: number,
+    public readonly message: string,
+    public readonly hint?: Record<string, unknown>,
+    public readonly code?: string
+  ) {
     super(message);
-    this.statusCode = statusCode;
-    this.message = message;
-    Object.setPrototypeOf(this, CustomError.prototype);
+    this.name = this.constructor.name;
+    Error.captureStackTrace(this, this.constructor);
+  }
+
+  toJSON() {
+    return {
+      statusCode: this.statusCode,
+      error: this.message,
+      ...(this.hint && { hint: this.hint }),
+      ...(this.code && { code: this.code }),
+    };
   }
 }
-
-export { CustomError };
