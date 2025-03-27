@@ -11,7 +11,8 @@
         <FormFields :form="form" :isDisabled="!imovelSelecionado" />
         <button
           type="submit"
-          class="btn btn-primary btn-lg w-100 mt-4"
+          class="btn btn-lg w-100 mt-4"
+          :class="{ 'btn-primary': imovelSelecionado, 'btn-secondary': !imovelSelecionado }"
           :disabled="!imovelSelecionado"
         >
           Salvar
