@@ -4,6 +4,10 @@ import { CreateCondominiumController } from "./controllers/CreateCondominiumCont
 export const router = Router();
 const createCondominiumController = new CreateCondominiumController();
 
-router.post("/condominium", async (req: Request, res: Response) => {
-  await createCondominiumController.handle(req, res);
-});
+router.post(
+  "/condominium",
+  CreateCondominiumController.validation,
+  async (req: Request, res: Response) => {
+    await createCondominiumController.handle(req, res);
+  }
+);

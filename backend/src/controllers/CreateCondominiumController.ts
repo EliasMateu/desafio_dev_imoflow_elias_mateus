@@ -1,22 +1,31 @@
 import { Request, Response } from "express";
 import { CreateCondominiumService } from "../services/CreateCondominiumService";
 import { CreateCondominiumRequestDto } from "../dtos/CreateCondominiumRequestDto";
+import { validateRequest } from "../middlewares/ValidateRequest";
+import { CustomError } from "../utils/CustomError";
+import { CondominiumBusinessRules } from "../business/CondominiumBusinessRules"; // Importe o CondominiumBusinessRules
 
 class CreateCondominiumController {
+  static validation = validateRequest(CreateCondominiumRequestDto);
+
   async handle(req: Request, res: Response) {
     try {
       const data: CreateCondominiumRequestDto = req.body;
+      const businessRules = new CondominiumBusinessRules();
+      const service = new CreateCondominiumService(businessRules);
+      const result = await service.execute(data);
 
-      const createCondominiumService = new CreateCondominiumService();
-      const condominium = await createCondominiumService.execute(data);
-
-      return res.status(201).json(condominium);
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        return res.status(400).json({ error: error.message });
-      } else {
-        return res.status(500).json({ error: "An unknown error occurred" });
+      return res.status(201).json(result);
+    } catch (error) {
+      if (error instanceof CustomError) {
+        return res.status(error.statusCode).json(error.toJSON());
       }
+
+      console.error("Unexpected error:", error);
+      return res.status(500).json({
+        statusCode: 500,
+        error: "Internal Server Error",
+      });
     }
   }
 }
