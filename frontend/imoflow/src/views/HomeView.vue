@@ -1,9 +1,15 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import HeaderComponent from '@/components/HeaderComponent.vue'
+import CondominioFormComponent from '@/components/CondominioFormComponent.vue'
+import FooterComponent from '@/components/FooterComponent.vue'
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <div class="d-flex flex-column min-vh-100">
+    <HeaderComponent />
+    <main class="flex-grow-1">
+      <CondominioFormComponent />
+    </main>
+    <FooterComponent />
+  </div>
 </template>
