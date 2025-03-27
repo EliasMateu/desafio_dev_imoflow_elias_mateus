@@ -1,9 +1,9 @@
 export interface CreateCondominioRequestDto {
   id_imovel: string
   nome_condominio: string
-  cep: string
+  cep: number
   rua: string
-  numero: number | string
+  numero: number
   complemento?: string
   cidade: string
   estado: string
