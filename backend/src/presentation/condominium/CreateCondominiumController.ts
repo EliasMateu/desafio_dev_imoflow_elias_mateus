@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { CreateCondominiumService } from "../services/CreateCondominiumService";
-import { CreateCondominiumRequestDto } from "../dtos/CreateCondominiumRequestDto";
-import { validateRequest } from "../middlewares/ValidateRequest";
-import { CustomError } from "../utils/CustomError";
-import { CondominiumBusinessRules } from "../business/CondominiumBusinessRules"; // Importe o CondominiumBusinessRules
+import { CreateCondominiumService } from "../../infrastructure/condominium/CreateCondominiumService";
+import { CreateCondominiumRequestDto } from "../../infrastructure/condominium/dto/CreateCondominiumRequestDto";
+import { validateRequest } from "../../middlewares/ValidateRequest";
+import { CustomError } from "../../utils/CustomError";
+import { CondominiumBusinessRules } from "../../infrastructure/condominium/business/CondominiumBusinessRules"; // Importe o CondominiumBusinessRules
 
 class CreateCondominiumController {
   static validation = validateRequest(CreateCondominiumRequestDto);

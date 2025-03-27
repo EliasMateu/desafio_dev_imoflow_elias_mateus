@@ -1,8 +1,8 @@
 import { PrismaClient, CondominiumType } from "@prisma/client";
-import { CreateCondominiumRequestDto } from "../dtos/CreateCondominiumRequestDto";
-import { CreateCondominiumResponseDto } from "../dtos/CreateCondominiumResponseDto";
-import { CustomError } from "../utils/CustomError";
-import { CondominiumBusinessRules } from "../business/CondominiumBusinessRules";
+import { CreateCondominiumRequestDto } from "./dto/CreateCondominiumRequestDto";
+import { CreateCondominiumResponseDto } from "./dto/CreateCondominiumResponseDto";
+import { CustomError } from "../../utils/CustomError";
+import { CondominiumBusinessRules } from "./business/CondominiumBusinessRules";
 
 const prisma = new PrismaClient();
 

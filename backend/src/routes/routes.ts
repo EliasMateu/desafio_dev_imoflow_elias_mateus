@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { CreateCondominiumController } from "./controllers/CreateCondominiumController";
+import { CreateCondominiumController } from "../presentation/condominium/CreateCondominiumController";
 
 export const router = Router();
 const createCondominiumController = new CreateCondominiumController();

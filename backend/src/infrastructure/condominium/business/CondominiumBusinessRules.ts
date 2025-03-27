@@ -1,5 +1,5 @@
-import { CondominiumRepository } from "../domain/condominio/repository/CondominiumRepository";
-import { CustomError } from "../utils/CustomError";
+import { CondominiumRepository } from "../../../domain/condominium/repository/CondominiumRepository";
+import { CustomError } from "../../../utils/CustomError";
 
 class CondominiumBusinessRules {
   async validate(data: {

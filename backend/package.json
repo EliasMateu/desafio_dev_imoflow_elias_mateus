@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server.ts",
   "scripts": {
-    "start:dev": "nodemon --legacy-watch --ext ts,json --exec ts-node src/server.ts"
+    "start:dev": "nodemon --legacy-watch --ext ts,json --exec ts-node src/config/server.ts"
   },
   "keywords": [],
   "author": "",

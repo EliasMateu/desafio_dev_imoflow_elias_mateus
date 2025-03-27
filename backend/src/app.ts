@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import logger from "morgan";
-import { router } from "./routes";
+import { router } from "./routes/routes";
 import { ErrorHandler } from "./middlewares/ErrorHandler";
 
 export const app = express();
