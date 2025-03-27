@@ -1,0 +1,23 @@
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 1024px) {
+  body {
+    display: block;
+  }
+
+  #app {
+    display: flex;
+    grid-template-columns: none;
+    padding: 0;
+  }
+}
