@@ -2,7 +2,7 @@ import axios from 'axios'
 import type { CreateCondominioRequestDto } from '@/services/dto/CreateCondominioRequestDto'
 
 const demoUrl = 'https://demo.imoflow.app.br/api'
-const apiUrl = 'https://localhost:3000/api/v1'
+const apiUrl = 'http://localhost:3000/api/v1'
 
 export const ApiService = {
   async getImoveis() {
