@@ -7,6 +7,7 @@
       @change="$emit('selecionado', imovelSelecionado)"
     >
       <option value="" disabled>Selecione</option>
+      <!-- Alterado para value="" -->
       <option v-for="imovel in imoveis" :key="imovel.id_imovel" :value="imovel.id_imovel">
         {{ imovel.categoria }} - {{ imovel.bairro }}, {{ imovel.cidade }} - R$:
         {{ imovel.valorVenda }}
@@ -16,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useImoveisStore } from '@/stores/UseImoveisStore'
 import { storeToRefs } from 'pinia'
 

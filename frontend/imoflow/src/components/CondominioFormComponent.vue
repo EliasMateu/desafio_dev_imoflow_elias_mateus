@@ -20,15 +20,27 @@
       </form>
     </div>
   </div>
+
+  <LoadingPageComponent v-if="loading" />
+
+  <ModalComponent
+    :show="showModal"
+    :title="modalTitle"
+    :message="modalMessage"
+    @close="showModal = false"
+  />
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { nextTick, ref } from 'vue'
 import { ApiService } from '@/services/ApiService'
 import { CondominiumType } from '@/services/dto/CreateCondominioRequestDto'
 import ImovelSelect from '@/components/ImovelSelectComponent.vue'
 import FormFields from '@/components/FormFieldsComponent.vue'
+import LoadingPageComponent from './LoadingPageComponent.vue'
+import ModalComponent from './ModalComponent.vue'
 
+const loading = ref(false)
 const imovelSelecionado = ref<string | null>(null)
 const form = ref({
   nome_condominio: '',
@@ -45,12 +57,21 @@ const selecionarImovel = (id: string) => {
   imovelSelecionado.value = id
 }
 
+const showModal = ref(false)
+const modalTitle = ref('')
+const modalMessage = ref('')
+
 const salvarCondominio = async () => {
   if (!imovelSelecionado.value) return alert('Selecione um imóvel antes de salvar.')
 
+  loading.value = true
+
   try {
     await ApiService.createCondominium({ ...form.value, id_imovel: imovelSelecionado.value })
-    alert('Cadastro realizado com sucesso!')
+    loading.value = false
+    modalTitle.value = 'Sucesso'
+    modalMessage.value = 'Cadastro realizado com sucesso!'
+    showModal.value = true
     form.value = {
       nome_condominio: '',
       cep: 0,
@@ -62,8 +83,11 @@ const salvarCondominio = async () => {
       tipo: CondominiumType.HORIZONTAL,
     }
     imovelSelecionado.value = null
-  } catch (error) {
-    alert('Erro ao cadastrar condomínio.')
+  } catch (error: any) {
+    loading.value = false
+    modalTitle.value = 'Erro'
+    modalMessage.value = error.response?.data?.error || 'Erro ao cadastrar o condomínio.'
+    showModal.value = true
   }
 }
 </script>
