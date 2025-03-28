@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { CondominiumType } from '@/services/dto/CreateCondominioRequestDto'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 const estados = computed(() => [
   'AC',
@@ -47,6 +47,28 @@ const props = defineProps<{
 }>()
 
 const condominiumTypes = computed(() => Object.values(CondominiumType))
+
+const errors = ref({
+  cep: '',
+  numero: '',
+})
+
+const validateCep = (cep: number) => {
+  const cepStr = cep.toString()
+  if (cepStr.length !== 8) {
+    errors.value.cep = 'CEP precisa ter 8 dígitos.'
+  } else {
+    errors.value.cep = ''
+  }
+}
+
+const validateNumero = (numero: number) => {
+  if (!numero) {
+    errors.value.numero = 'Número é obrigatório.'
+  } else if (numero <= 0) {
+    errors.value.numero = 'Número precisa ser maior que zero.'
+  }
+}
 </script>
 
 <template>
@@ -65,7 +87,15 @@ const condominiumTypes = computed(() => Object.values(CondominiumType))
 
       <div class="col-md-6">
         <label class="form-label" for="cep">CEP</label>
-        <input id="cep" type="number" class="form-control" v-model="form.cep" required />
+        <input
+          id="cep"
+          type="number"
+          class="form-control"
+          v-model="form.cep"
+          @blur="validateCep(form.cep)"
+          required
+        />
+        <div v-if="errors.cep" class="text-danger">{{ errors.cep }}</div>
       </div>
     </div>
 
@@ -77,7 +107,15 @@ const condominiumTypes = computed(() => Object.values(CondominiumType))
 
       <div class="col-md-6">
         <label class="form-label" for="numero">Número</label>
-        <input id="numero" type="number" class="form-control" v-model="form.numero" required />
+        <input
+          id="numero"
+          type="number"
+          class="form-control"
+          v-model="form.numero"
+          @blur="validateNumero(form.numero)"
+          required
+        />
+        <div v-if="errors.numero" class="text-danger">{{ errors.numero }}</div>
       </div>
     </div>
 
@@ -115,7 +153,7 @@ const condominiumTypes = computed(() => Object.values(CondominiumType))
               v-model="form.tipo"
               :value="CondominiumType.HORIZONTAL"
             />
-            <label class="form-check-label" for="tipo-horizontal"> Horizontals </label>
+            <label class="form-check-label" for="tipo-horizontal"> Horizontais </label>
           </div>
           <div class="form-check">
             <input
@@ -125,7 +163,7 @@ const condominiumTypes = computed(() => Object.values(CondominiumType))
               v-model="form.tipo"
               :value="CondominiumType.VERTICAL"
             />
-            <label class="form-check-label" for="tipo-vertical"> Vertical </label>
+            <label class="form-check-label" for="tipo-vertical"> Verticais </label>
           </div>
         </div>
       </div>
@@ -137,5 +175,9 @@ const condominiumTypes = computed(() => Object.values(CondominiumType))
 .form-control,
 .form-select {
   width: 100%;
+}
+
+.text-danger {
+  font-size: 0.875rem;
 }
 </style>
