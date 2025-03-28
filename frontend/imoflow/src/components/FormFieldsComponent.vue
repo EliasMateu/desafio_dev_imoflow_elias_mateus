@@ -63,9 +63,7 @@ const validateCep = (cep: number) => {
 }
 
 const validateNumero = (numero: number) => {
-  if (!numero) {
-    errors.value.numero = 'Número é obrigatório.'
-  } else if (numero <= 0) {
+  if (numero <= 0) {
     errors.value.numero = 'Número precisa ser maior que zero.'
   }
 }
